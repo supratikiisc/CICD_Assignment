@@ -1,0 +1,28 @@
+name: Pull and Run Docker Image
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Image"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  pull-and-run-image:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Pull Docker image
+        run: |
+          docker pull supratikb/cicd_assignment:pr-${{ github.event.workflow_run.event.pull_request.number }}
+
+      - name: Run Docker image and check score
+        run: |
+          SCORE=$(docker run --rm supratikb/cicd_assignment:pr-${{ github.event.workflow_run.event.pull_request.number }} | tail -n 1)
+          echo "Model score:"
+          echo "$SCORE"
+          if [[ `echo "$OUTPUT 0.50" | awk '{print ($1 < $2)}'` == 1 ]]; then echo "Insufficient Accuracy" && exit 1; else echo "Score is above 0.50, success!"; fi
