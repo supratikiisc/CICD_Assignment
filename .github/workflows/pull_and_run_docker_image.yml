@@ -1,10 +1,6 @@
 name: Pull and run Docker Image
 
-on:
-  workflow_run:
-    workflows: [Build and Push Docker Image To Dockerhub]
-    types:
-      - completed
+on: workflow_call
 
 jobs:
   pull-and-run-image:
