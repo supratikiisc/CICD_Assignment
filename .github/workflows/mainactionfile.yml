@@ -6,11 +6,12 @@ on:
       - main
 
 jobs:
-  first:
+  buildandupload:
     name: Upload image to dockerhub
     uses: supratikiisc/CICD_Assignment/.github/workflows/build_docker_push_image.yml@main
    
-  second:
+  pullandrun:
     name: Pull image and run test
-    needs: Upload image to dockerhub
+    needs: buildandupload
+    if: needs.buildandupload.result == 'success'
     uses: supratikiisc/CICD_Assignment/.github/workflows/pull_and_run_docker_image.yml@main
