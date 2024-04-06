@@ -1,0 +1,16 @@
+name: Upload Docker image and run test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  first:
+    name: Upload image to dockerhub
+    uses: supratikiisc/CICD_Assignment/.github/workflows/build_docker_push_image.yml@main
+   
+  second:
+    name: Pull image and run test
+    needs: Upload image to dockerhub
+    uses: supratikiisc/CICD_Assignment/.github/workflows/pull_and_run_docker_image.yml@main
