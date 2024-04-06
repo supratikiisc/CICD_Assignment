@@ -2,11 +2,9 @@ name: Pull and run Docker Image
 
 on:
   workflow_run:
-    workflows: ["Build and Push Docker Image To Dockerhub"]
+    workflows: [Build and Push Docker Image To Dockerhub]
     types:
       - completed
-    branches:
-      - main
 
 jobs:
   pull-and-run-image:
