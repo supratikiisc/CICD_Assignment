@@ -1,9 +1,6 @@
 name: Build and Push Docker Image To Dockerhub
 
-on:
-  pull_request:
-    branches:
-      - main
+on: workflow_call
 
 jobs:
   build-and-push-image:
