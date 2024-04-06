@@ -24,4 +24,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/cicd_assignment:pr-${{ github.event.pull_request.number }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/cicd_assignment:mlops
